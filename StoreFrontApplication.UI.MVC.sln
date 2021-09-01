@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreFrontApplication.DATA.EF", "StoreFrontApplication.DATA.EF\StoreFrontApplication.DATA.EF.csproj", "{E4A829DD-D9CB-431D-99E2-AE1A7DA55702}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{2A594851-050E-4FBB-8DD3-DBB58C2201BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A594851-050E-4FBB-8DD3-DBB58C2201BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A594851-050E-4FBB-8DD3-DBB58C2201BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4A829DD-D9CB-431D-99E2-AE1A7DA55702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4A829DD-D9CB-431D-99E2-AE1A7DA55702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4A829DD-D9CB-431D-99E2-AE1A7DA55702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4A829DD-D9CB-431D-99E2-AE1A7DA55702}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
