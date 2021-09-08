@@ -44,7 +44,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <!-- Link--><a class="nav-link active" href="@Url.Action("Index", "Home")">Home</a>
+                                <!-- Link--><a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
                             </li>
                             <li class="nav-item">
                                 <!-- Link--><a class="nav-link" href="@Url.Action("Index", "Products")">Shop</a>
@@ -136,8 +136,10 @@
     @RenderSection("scripts", required: false)
     <script>
         $('.navbar-nav a').each(function () {
-            if ($(this).find('a'))
-        })
+            if ($(this).find('a').attr('href') == window.location.pathname) {
+                $(this).addClass('active');
+            }
+        });
     </script>
     <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">

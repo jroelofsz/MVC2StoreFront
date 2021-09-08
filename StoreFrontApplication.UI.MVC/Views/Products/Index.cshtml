@@ -1,75 +1,67 @@
 ﻿@model IEnumerable<StoreFrontApplication.DATA.EF.Product>
 
 @{
-    ViewBag.Title = "Index";
+    /**/
+
+    ViewBag.Title = "Shop";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AmtInStock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AmtOnOrder)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StockStatu.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Supplier.CompanyName)
-        </th>
-        <th></th>
-    </tr>
+@if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+{
+    <span class="offset-10 font-weight-bolder">@Html.ActionLink("Create New", "Create", new { @class = "offset-10 btn btn-outline-primary" })</span>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmtInStock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmtOnOrder)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StockStatu.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
-        </td>
-    </tr>
 }
 
-</table>
+
+@foreach (var item in Model)
+{
+
+
+
+    <div class="card mb-3 offset-1" style="max-width: 80%">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="~/Content/img/cat-img-3.jpg" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">@item.ProductName</h5>
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-text">Supplier: @Html.DisplayFor(model => item.Supplier.CompanyName)</p>
+                    <p class="card-text">Stock Status: <span class="text-primary font-weight-bold">@Html.DisplayFor(model => item.StockStatu.Status)</span></p>
+                    <p class="card-text">@item.AmtInStock in stock</p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Price:<br />
+                            @Html.DisplayFor(model => item.Price)<br />
+                            @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+                            {
+                                <span>@Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @class = "btn btn-outline-primary" })</span>
+                            }
+                            <br />
+                            <hr />
+                            <br />
+                            @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+                            {
+                                <span>@Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @class = "btn btn-lg btn-danger pull-right" })</span>
+                            }
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+
+
+
+
