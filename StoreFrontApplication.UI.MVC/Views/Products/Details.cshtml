@@ -1,84 +1,39 @@
 ﻿@model StoreFrontApplication.DATA.EF.Product
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = " Details";
 }
 
-<h2>Details</h2>
+<h3 class="card-header text-center">@Model.ProductName @ViewBag.Title</h3>
 
-<div class="container">
-    <div>
-        <h4>Product</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ProductName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Price)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.AmtInStock)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.AmtInStock)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.AmtOnOrder)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.AmtOnOrder)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Category.Type)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Category.Type)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.StockStatu.Status)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.StockStatu.Status)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Supplier.CompanyName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Supplier.CompanyName)
-            </dd>
-
-        </dl>
+<div class="card mb-3 offset-1" style="max-width: 80%">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+                <img src="~/Content/img/products/@Model.ProductName .jpg" class="card-img" alt="@Model.ProductName thumbnail image">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(model => model.ProductName)</h5>
+                <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
+                <p class="card-text">Supplier: @Html.DisplayFor(model => model.Supplier.CompanyName)</p>
+                <p class="card-text">Stock Status: <span class="text-primary font-weight-bold">@Html.DisplayFor(model => model.StockStatu.Status)</span></p>
+                <p class="card-text">@Html.DisplayFor(model => model.StockStatu.Status) in stock</p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        Price:<br />
+                        @Html.DisplayFor(model => model.Price)<br /><br />
+                        <a href="@Url.Action("Index", "Products")" class="btn btn-outline-primary">Back to Products</a><br /><br />
+                        @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+                        {
+                            <span>@Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }, new { @class = "btn btn-outline-primary" })</span>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+                        {
+                            <span>@Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }, new { @class = "btn btn-danger pull-right" })</span>
+                        }
+                    </small>
+                </p>
+            </div>
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
 </div>

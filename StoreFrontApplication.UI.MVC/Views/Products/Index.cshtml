@@ -23,7 +23,9 @@
     <div class="card mb-3 offset-1" style="max-width: 80%">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src="~/Content/img/cat-img-3.jpg" class="card-img" alt="...">
+                <a href="@Url.Action("Details", new { id = item.ProductID } ) " title="@item.ProductName">
+                    <img src="~/Content/img/products/@item.ProductName .jpg" class="card-img" alt="@item.ProductName thumbnail image">
+                </a>
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -32,23 +34,7 @@
                     <p class="card-text">Supplier: @Html.DisplayFor(model => item.Supplier.CompanyName)</p>
                     <p class="card-text">Stock Status: <span class="text-primary font-weight-bold">@Html.DisplayFor(model => item.StockStatu.Status)</span></p>
                     <p class="card-text">@item.AmtInStock in stock</p>
-                    <p class="card-text">
-                        <small class="text-muted">
-                            Price:<br />
-                            @Html.DisplayFor(model => item.Price)<br />
-                            @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
-                            {
-                                <span>@Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @class = "btn btn-outline-primary" })</span>
-                            }
-                            <br />
-                            <hr />
-                            <br />
-                            @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
-                            {
-                                <span>@Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @class = "btn btn-lg btn-danger pull-right" })</span>
-                            }
-                        </small>
-                    </p>
+
                 </div>
             </div>
         </div>
