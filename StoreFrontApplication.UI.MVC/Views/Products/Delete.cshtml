@@ -7,9 +7,37 @@
 
 <h2 class="text-center">Are you sure you want to delete @Model.ProductName?</h2>
 <div class="container">
-    <h4>Product</h4>
     <hr />
-    <dl class="dl-horizontal">
+
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="~/Content/img/products/@Model.ProductName .jpg" class="card-img" alt="@Model.ProductName thumbnail image">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(model => model.ProductName)</h5>
+                <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
+                <p class="card-text">Supplier: @Html.DisplayFor(model => model.Supplier.CompanyName)</p>
+                <p class="card-text">Stock Status: <span class="text-primary font-weight-bold">@Html.DisplayFor(model => model.StockStatu.Status)</span></p>
+                <p class="card-text">@Html.DisplayFor(model => model.AmtInStock) in stock</p>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-danger" /> |
+                        @Html.ActionLink("Cancel", "Index", new { @class = "btn btn-primary" })
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    @*<dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.ProductName)
         </dt>
@@ -74,14 +102,7 @@
             @Html.DisplayFor(model => model.Supplier.CompanyName)
         </dd>
 
-    </dl>
+    </dl>*@
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Cancel", "Index", new { @class="btn btn-primary"})
-        </div>
-    }
 </div>

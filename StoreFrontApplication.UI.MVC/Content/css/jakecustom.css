@@ -1,3 +1,8 @@
 ﻿.nav-item {
     margin-right: 15px;
 }
+
+.max-p-width {
+    max-width: 60%;
+    font-size: 1.3em;
+}

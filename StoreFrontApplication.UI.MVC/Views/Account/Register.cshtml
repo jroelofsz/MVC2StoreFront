@@ -6,8 +6,9 @@
 
 
 
-<div class="card-header">
-    <div class="card-body col-md-4 offset-4">
+<div class="container">
+
+    <div>
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.AntiForgeryToken()
@@ -29,5 +30,6 @@
             </fieldset>
         }
     </div>
+    <br />
 </div>
 

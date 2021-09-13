@@ -217,6 +217,7 @@
     <Content Include="Content\img\cat-img-4.jpg" />
     <Content Include="Content\img\category-1.jpg" />
     <Content Include="Content\img\category-2.jpg" />
+    <Content Include="Content\img\company\company-logo.png" />
     <Content Include="Content\img\customer-1.png" />
     <Content Include="Content\img\customer-2.png" />
     <Content Include="Content\img\favicon.png" />
@@ -241,6 +242,8 @@
     <Content Include="Content\img\product-detail-2.jpg" />
     <Content Include="Content\img\product-detail-3.jpg" />
     <Content Include="Content\img\product-detail-4.jpg" />
+    <Content Include="Content\img\products\Intel i7 7700k .jpg" />
+    <Content Include="Content\img\products\no image .png" />
     <Content Include="Content\img\products\Powercolor Red Devil 6700xt .jpg" />
     <Content Include="Content\img\template-mac.png" />
     <Content Include="Content\js\demo.js" />
