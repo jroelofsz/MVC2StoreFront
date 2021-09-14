@@ -23,6 +23,7 @@ namespace StoreFrontApplication.DATA.EF
         public Nullable<int> AmtOnOrder { get; set; }
         public int SupplierID { get; set; }
         public int InStockID { get; set; }
+        public string ProductImage { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual StockStatus StockStatu { get; set; }

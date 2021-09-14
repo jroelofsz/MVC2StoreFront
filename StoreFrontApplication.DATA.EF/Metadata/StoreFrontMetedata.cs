@@ -143,6 +143,10 @@ namespace StoreFrontApplication.DATA.EF//.Metadata
         [Required(ErrorMessage = "* In Stock is required")]
         [Display(Name = "In Stock")]
         public int InStockID { get; set; }
+
+        [Display(Name = "Product Image")]
+        [StringLength(50, ErrorMessage = "* Product image cannot exceed 100 characters")]
+        public string ProductImage { get; set; }
     }
 
     [MetadataType(typeof(ProductMetadata))]

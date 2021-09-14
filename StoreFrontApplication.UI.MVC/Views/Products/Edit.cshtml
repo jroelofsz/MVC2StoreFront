@@ -12,15 +12,20 @@
 
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ProductID)
+    @Html.HiddenFor(model => model.ProductImage)
     <div class="card mb-3 offset-1" style="max-width: 80%">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src="~/Content/img/products/@Model.ProductName .jpg" class="card-img" alt="@Model.ProductName thumbnail image">
+                <label for="ProductImg">
+                    <img src="@Url.Content("~/Content/images/" +Model.ProductImage)" class="card-img" alt="@Model.ProductName thumbnail image" id="img">
+                </label>
+                <input type="file" id="ProductImg" name="ProductImage" />
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -31,7 +36,11 @@
                             @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductImage, new { htmlAttributes = new { @class = "form-control" } })
+                        <div class="col-md-10">
+                        </div>
+                    </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
@@ -94,23 +103,6 @@
                             <span>@Html.ActionLink("Cancel", "Details", new { id = Model.ProductID }, new { @class = "btn btn-danger" })</span>
                         </div>
                     </div>
-                    @*<p class="card-text">@Html.DisplayFor(model => model.StockStatu.Status) in stock</p>
-        <p class="card-text">
-            <small class="text-muted">
-                Price:<br />
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })<br /><br />
-                <a href="@Url.Action("Index", "Products")" class="btn btn-outline-primary">Back to Products</a><br /><br />
-                @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
-                {
-                    <span>@Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }, new { @class = "btn btn-outline-primary" })</span>
-                }
-                @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
-                {
-                    <span>@Html.ActionLink("Delete", "Delete", new { id = Model.ProductID }, new { @class = "btn btn-lg btn-danger pull-right" })</span>
-                }
-            </small>
-        </p>*@
                 </div>
             </div>
         </div>

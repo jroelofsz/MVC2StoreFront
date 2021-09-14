@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="StoreFrontModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StoreFrontModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -52,6 +52,7 @@
           <Property Name="AmtOnOrder" Type="int" />
           <Property Name="SupplierID" Type="int" Nullable="false" />
           <Property Name="InStockID" Type="int" Nullable="false" />
+          <Property Name="ProductImage" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="StockStatus">
           <Key>
@@ -160,8 +161,7 @@
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StoreFrontModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -220,6 +220,7 @@
           <NavigationProperty Name="Category" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
           <NavigationProperty Name="StockStatu" Relationship="Self.FK_Products_StockStatus" FromRole="Products" ToRole="StockStatus" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Products_Suppliers" FromRole="Products" ToRole="Suppliers" />
+          <Property Name="ProductImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="StockStatus">
           <Key>
@@ -376,6 +377,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="StoreFrontModel.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
