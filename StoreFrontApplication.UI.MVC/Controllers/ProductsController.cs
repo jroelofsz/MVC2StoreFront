@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using StoreFrontApplication.DATA.EF;
 using StoreFrontApplication.UI.MVC.Utilities;
+using PagedList;
+using PagedList.Mvc;
 
 namespace StoreFrontApplication.UI.MVC.Controllers
 {
@@ -17,10 +19,28 @@ namespace StoreFrontApplication.UI.MVC.Controllers
         private StoreFrontEntities db = new StoreFrontEntities();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(string searchString, int page = 1)
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.StockStatu).Include(p => p.Supplier);
-            return View(products.ToList());
+            //var products = db.Products.Include(p => p.Category).Include(p => p.StockStatu).Include(p => p.Supplier);
+            //return View(products.ToList());
+
+            //variable for how many records to show
+            int pageSize = 7;
+
+            //collections sorting
+            var products = db.Products.OrderBy(x => x.ProductName).ToList();
+
+            #region Searching Logic
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(x => x.ProductName.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+
+            ViewBag.SearchString = searchString;
+            #endregion
+
+            return View(products.ToPagedList(page, pageSize));
         }
 
         // GET: Products/Details/5

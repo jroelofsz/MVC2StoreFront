@@ -1,8 +1,8 @@
-﻿@model IEnumerable<StoreFrontApplication.DATA.EF.Product>
+﻿@*@model IEnumerable<StoreFrontApplication.DATA.EF.Product>*@
+@model PagedList.IPagedList<StoreFrontApplication.DATA.EF.Product>
+@using PagedList.Mvc
 
 @{
-    /**/
-
     ViewBag.Title = "Shop";
 }
 
@@ -13,13 +13,30 @@
     <span class="offset-10 font-weight-bolder">@Html.ActionLink("Create New", "Create", new { @class = "offset-10 btn btn-outline-primary" })</span>
 
 }
+    <div class="jumbotron">
+        <div class="container">
+            @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+            {
+                <p>
+                    Search products: @Html.TextBox("SearchString", ViewBag.SearchString as string, new { @class = "form-control" })<br />
+                    <input type="submit" value="Go!" class="btn btn-primary" />
+                    @Html.ActionLink("Reset", "Index", "Products", null, new { @class = "btn btn-danger" })
+                </p>
+            }
+        </div>
+        <div class="container">
+            @* PAGER CODE: *@
+
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @* PagedListPager w/ search *@
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchString }))
+        </div>
+    </div>
 
 
 @foreach (var item in Model)
 {
-
-
-
     <div class="card mb-3 offset-1" style="max-width: 80%">
         <div class="row no-gutters">
             <div class="col-md-4">
