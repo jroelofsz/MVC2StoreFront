@@ -1,0 +1,113 @@
+﻿@*@model IEnumerable<StoreFrontApplication.UI.MVC.Models.CartItemViewModel>*@
+
+@model Dictionary<int, StoreFrontApplication.UI.MVC.Models.CartItemViewModel>
+
+@{
+    ViewBag.Title = "Shopping Cart";
+
+
+    //Varaibles for calcualtors
+    decimal? cartTotal = 0;
+    int totalItems = 0;
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+
+<div class="container">
+    <div class="pull-right">
+        @Html.ActionLink("Get More Things!", "Index", "Products", null, new { @class = "btn btn-info" })
+    </div>
+    <br />
+    @if (Model.Count == 0)
+    {
+        <p class="alert alert-warning">
+            You have no items in your cart.
+        </p>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Product
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Total
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Content/img/products/t_@item.Value.Product.ProductImage" />
+                    </td>
+                    <td>
+                        @* Update the cart *@
+                        @using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
+                        {
+                            @Html.Hidden("prodId", item.Key)
+                            @Html.TextBox("qty", item.Value.Qty, new { @class = "form-control", style = "max-width:50px; display:inline;" })
+                            <input type="submit" value="Update" class="btn btn-dark" />
+                        }
+
+
+
+                        @{totalItems += item.Value.Qty;}
+                    </td>
+                    <td>
+                        @item.Value.Product.ProductName
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value.Product.Price)
+                    </td>
+                    <td>
+                        @{
+                            decimal? lineTotal = item.Value.Product.Price * item.Value.Qty;
+
+                            //update the cart total
+                            cartTotal = lineTotal;
+                        }
+                        @string.Format($"{lineTotal:c}")
+                    </td>
+                    <td>
+                        @Html.ActionLink("Remove From Cart", "ShoppingCart", new { id = item.Value.Product.ProductID }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <div>
+            @*<p>
+                    You have @totalItems item@(totalItems == 1 ? "" : "s") in your cart.
+                    Your total before taxes and shipping is @string.Format($"{cartTotal:c}")
+                </p>*@
+            <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Cart Total</a>
+                </li>
+            </ul>
+            <div class="tab-content mb-5" id="myTabContent">
+                <div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description-tab">
+                    <div class="p-4 p-lg-5 bg-dark-light">
+                        <h3>
+                            You have @totalItems item@(totalItems == 1 ? "" : "s") in your cart.
+                            Your total before taxes and shipping is @string.Format($"{cartTotal:c}")
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

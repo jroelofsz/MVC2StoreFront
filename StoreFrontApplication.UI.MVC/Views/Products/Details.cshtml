@@ -21,7 +21,18 @@
                 <p class="card-text">
                     <small class="text-muted">
                         Price:<br />
-                        @Html.DisplayFor(model => model.Price)<br /><br />
+                        @Html.DisplayFor(model => model.Price)<br />
+
+                        @* Add to cart *@
+                        @using (Html.BeginForm("AddToCart", "ShoppingCart", new { prodId = Model.ProductID }, FormMethod.Post))
+                        {
+                            <span>Quantity: </span>
+                            @Html.TextBox("Qty", 1, new { @class = "form-control", style="max-width: 50px; display: inline;" })
+                            <input type="submit" value="Add To Cart!" class="btn btn-success" />
+                        }
+
+
+                        <br /><br />
                         <a href="@Url.Action("Index", "Products")" class="btn btn-outline-primary">Back to Products</a><br /><br />
                         @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
                         {
