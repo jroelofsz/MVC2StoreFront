@@ -84,12 +84,33 @@ namespace StoreFrontApplication.UI.MVC.Controllers
             {
                 shoppingCart.Remove(prodId);
             }
+            else if (shoppingCart[prodId].Qty > shoppingCart[prodId].Product.AmtInStock)
+            {
+                shoppingCart[prodId].Qty = (int)shoppingCart[prodId].Product.AmtInStock;
+            }
 
             //update the session variable
             Session["cart"] = shoppingCart;
 
             //redirct back to index with updated qty
             return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region Deleting from cart
+        public ActionResult RemoveFromCart(int id)
+        {
+            //Get session variable
+            Dictionary<int, CartItemViewModel> shoppingCart = (Dictionary<int, CartItemViewModel>)Session["cart"];
+
+            //remove item
+            shoppingCart.Remove(id);
+
+            //update session
+            Session["cart"] = shoppingCart;
+
+            return RedirectToAction("Index");
+
         }
         #endregion
     }
