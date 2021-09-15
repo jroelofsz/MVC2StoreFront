@@ -9,7 +9,7 @@
 <div class="card mb-3 offset-1" style="max-width: 80%">
     <div class="row no-gutters">
         <div class="col-md-4">
-                <img src="~/Content/img/products/@Model.ProductImage" class="card-img" alt="@Model.ProductName thumbnail image">
+            <img src="~/Content/img/products/@Model.ProductImage" class="card-img" alt="@Model.ProductName thumbnail image">
         </div>
         <div class="col-md-8">
             <div class="card-body">
@@ -17,7 +17,7 @@
                 <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
                 <p class="card-text">Supplier: @Html.DisplayFor(model => model.Supplier.CompanyName)</p>
                 <p class="card-text">Stock Status: <span class="text-primary font-weight-bold">@Html.DisplayFor(model => model.StockStatu.Status)</span></p>
-                <p class="card-text">@Html.DisplayFor(model => model.StockStatu.Status) in stock</p>
+                <p class="card-text">@Html.DisplayFor(model => model.AmtInStock) in stock</p>
                 <p class="card-text">
                     <small class="text-muted">
                         Price:<br />
@@ -27,8 +27,13 @@
                         @using (Html.BeginForm("AddToCart", "ShoppingCart", new { prodId = Model.ProductID }, FormMethod.Post))
                         {
                             <span>Quantity: </span>
-                            @Html.TextBox("Qty", 1, new { @class = "form-control", style="max-width: 50px; display: inline;" })
-                            <input type="submit" value="Add To Cart!" class="btn btn-success" />
+                            if (Model.AmtInStock >= 1)
+                            {
+                                <span>@Html.TextBox("Qty", 1, new { @class = "form-control", style = "max-width: 50px; display: inline;" })</span>
+                                <input type="submit" value="Add To Cart!" class="btn btn-success" />
+                            }
+
+
                         }
 
 

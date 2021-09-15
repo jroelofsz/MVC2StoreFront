@@ -7,10 +7,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using StoreFrontApplication.DATA.EF;
-using StoreFrontApplication.UI.MVC.Utilities;
-using PagedList;
-using PagedList.Mvc;
+using StoreFrontApplication.DATA.EF; //Added
+using StoreFrontApplication.UI.MVC.Utilities;// Added
+using PagedList; // Added for pagedlist
+using PagedList.Mvc;// Added for pagedlist
+using StoreFrontApplication.UI.MVC.Models;
 
 namespace StoreFrontApplication.UI.MVC.Controllers
 {

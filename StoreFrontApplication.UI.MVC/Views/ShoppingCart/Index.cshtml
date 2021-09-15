@@ -79,10 +79,9 @@
                     </td>
                     <td>
                         @{
-                            decimal? lineTotal = item.Value.Product.Price * item.Value.Qty;
-
                             //update the cart total
-                            cartTotal = lineTotal;
+                            decimal? lineTotal = item.Value.Product.Price * item.Value.Qty;
+                            cartTotal += lineTotal;
                         }
                         @string.Format($"{lineTotal:c}")
                     </td>
