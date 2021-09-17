@@ -4,9 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 class="text-center">Details</h2>
 
-<div>
+<div class="container">
     <h4>Employee</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -123,8 +123,8 @@
         </dd>
 
     </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EmpID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EmpID }, new { @class = "btn btn-primary" }) 
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-primary" })
 </p>
+</div>

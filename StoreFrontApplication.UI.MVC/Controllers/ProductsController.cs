@@ -44,6 +44,8 @@ namespace StoreFrontApplication.UI.MVC.Controllers
             return View(products.ToPagedList(page, pageSize));
         }
 
+        #region Non-Ajax CRUD
+
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -222,6 +224,31 @@ namespace StoreFrontApplication.UI.MVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+#endregion
+
+
+        //DELETE
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult AjaxDelete(int id)
+        {
+            Product product = db.Products.Find(id);
+
+            db.Products.Remove(product);
+            db.SaveChanges();
+
+            string confirmMessage = $"Deleted product {product.ProductName} from the database!";
+            return Json(new { id = id, message = confirmMessage });
+        }
+
+        //Details
+        [HttpGet]
+        public PartialViewResult ProductDetails(int id)
+        {
+            Product product = db.Products.Find(id);
+            return PartialView(product);
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

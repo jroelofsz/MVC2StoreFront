@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 
 /configs
+/StoreFrontApplication.UI.MVC/Configs/Keys.config

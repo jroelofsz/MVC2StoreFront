@@ -1,0 +1,124 @@
+﻿@model StoreFrontApplication.DATA.EF.Product
+
+@{
+    ViewBag.Title = " Details";
+}
+<div class="card mb-3 offset-1" style="max-width: 80%">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="~/Content/img/products/@Model.ProductImage" class="card-img" alt="@Model.ProductName thumbnail image">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(model => model.ProductName)</h5>
+                <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
+                <p class="card-text">Supplier: @Html.DisplayFor(model => model.Supplier.CompanyName)</p>
+                <p class="card-text">Stock Status: <span class="text-primary font-weight-bold">@Html.DisplayFor(model => model.StockStatu.Status)</span></p>
+                <p class="card-text">@Html.DisplayFor(model => model.AmtInStock) in stock</p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        Price:<br />
+                        @Html.DisplayFor(model => model.Price)<br />
+
+                        @* Add to cart*@
+                            @using (Html.BeginForm("AddToCart", "ShoppingCart", new { prodId = Model.ProductID }, FormMethod.Post))
+                            {
+                                <span>Quantity: </span>
+                                if (Model.AmtInStock >= 1)
+                                {
+                                    <span>@Html.TextBox("Qty", 1, new { @class = "form-control", style = "max-width: 50px; display: inline;" })</span>
+                                    <input type="submit" value="Add To Cart!" class="btn btn-success" />
+                                }
+
+
+                            }
+
+
+                        <br /><br />
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+                        {
+                            <span>@Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }, new { @class = "btn btn-outline-primary" })</span>
+                        }
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+        </dt>
+        <dd>
+            <img src="~/Content/img/products/@Model.ProductImage" alt="@Model.ProductImage photo" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmtInStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AmtInStock)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockStatu.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockStatu.Status)
+        </dd>
+
+
+    </dl>
+    @* Add to cart 
+    @using (Html.BeginForm("AddToCart", "ShoppingCart", new { prodId = Model.ProductID }, FormMethod.Post))
+    {
+        <span>Quantity: </span>
+        if (Model.AmtInStock >= 1)
+        {
+            <span>@Html.TextBox("Qty", 1, new { @class = "form-control", style = "max-width: 50px; display: inline;" })</span>
+            <input type="submit" value="Add To Cart!" class="btn btn-success" />
+        }
+
+
+    }
+</div>*@
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

@@ -8,58 +8,138 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 
+@*@if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+{
+
+    <div class="container">
+        <p class="row">
+            <button id="toggleProductCreate" class="btn btn-success">Add New</button>
+        </p>
+        <div id="ProductCreate">
+            @Html.Partial("ProductCreate", new StoreFrontApplication.DATA.EF.Product())
+        </div>
+    </div>
+}*@
+
 @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
 {
     <span class="offset-10 font-weight-bolder">@Html.ActionLink("Create New", "Create", new { @class = "offset-10 btn btn-outline-primary" })</span>
 
 }
-    <div class="jumbotron">
-        <div class="container">
-            @using (Html.BeginForm("Index", "Products", FormMethod.Get))
-            {
-                <p>
-                    Search products: @Html.TextBox("SearchString", ViewBag.SearchString as string, new { @class = "form-control" })<br />
-                    <input type="submit" value="Go!" class="btn btn-primary" />
-                    @Html.ActionLink("Reset", "Index", "Products", null, new { @class = "btn btn-danger" })
-                </p>
-            }
-        </div>
-        <div class="container">
-            @* PAGER CODE: *@
-
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-            @* PagedListPager w/ search *@
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchString }))
-        </div>
+<div class="jumbotron">
+    <div class="container">
+        @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+        {
+            <p>
+                Search products: @Html.TextBox("SearchString", ViewBag.SearchString as string, new { @class = "form-control" })<br />
+                <input type="submit" value="Go!" class="btn btn-primary" />
+                @Html.ActionLink("Reset", "Index", "Products", null, new { @class = "btn btn-danger" })
+            </p>
+        }
     </div>
+    <div class="container">
+        @* PAGER CODE: *@
+
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @* PagedListPager w/ search *@
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchString }))
+    </div>
+    <div class="container">
+        @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+        {
+            @Html.ActionLink("Add New Product", "Create", null,  new { @class = "btn btn-success" })
+
+        }
+    </div>
+</div>
+
+<div id="ProductsCard">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-3 offset-1" style="max-width: 80%" id="Product-@item.ProductID">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <a href="" class="detailsLink" id="@item.ProductID" title="">
+                        <img src="~/Content/img/products/t_@item.ProductImage" class="" alt="@item.ProductName thumbnail image">
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ProductName</h5>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text">Supplier: @Html.DisplayFor(model => item.Supplier.CompanyName)</p>
+                        <p class="card-text">Stock Status: <span class="text-primary font-weight-bold">@Html.DisplayFor(model => item.StockStatu.Status)</span></p>
+                        <p class="card-text">@item.AmtInStock in stock</p>
 
 
-@foreach (var item in Model)
-{
-    <div class="card mb-3 offset-1" style="max-width: 80%">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <a href="@Url.Action("Details", new { id = item.ProductID } ) " title="@item.ProductName">
-                    <img src="~/Content/img/products/t_@item.ProductImage" class="" alt="@item.ProductName thumbnail image">
-                </a>
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">@item.ProductName</h5>
-                    <p class="card-text">@item.Description</p>
-                    <p class="card-text">Supplier: @Html.DisplayFor(model => item.Supplier.CompanyName)</p>
-                    <p class="card-text">Stock Status: <span class="text-primary font-weight-bold">@Html.DisplayFor(model => item.StockStatu.Status)</span></p>
-                    <p class="card-text">@item.AmtInStock in stock</p>
+                        @if (User.IsInRole("Admin"))
+                        {
 
+
+                            @* Ajax Delete *@
+                            @Ajax.ActionLink("Delete", "AjaxDelete", "Products",
+                                 new { id = item.ProductID },
+                                 new AjaxOptions
+                                 {
+                                     HttpMethod = "POST",
+                                     Confirm = "Are you sure you want to delete this publisher?", //Creates a popup prompting the user (ok/cancel)
+                                     OnSuccess = "deleteConfirmed", //if the server responds with "ok", run the deleteConfirmed function in JS
+                                     OnFailure = "deleteFailed"//if the server responds with an error, run the deleteFailds function is JS
+                                 }, new { @class = "btn btn-danger" })
+                        }
+                        </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+
+</div>
+
+<div id="ProductDetails"></div>
+
+@section scripts{
+
+    <script>
+        //DELETE CONFIRMATION
+        function deleteConfirmed(response, status, data) {
+            //remove the row from the browser
+            var rowId = "#Product-" + response.id;
+            $("#ProductsCard").find(rowId).remove();
+
+            //display a status message
+            $("#MessageContent").html("<div class='alert alert-success'>" + response.message + "</div>");
+        }
+
+        function deleteFailed(response, status, data) {
+            $("#MessageContent").html("<div class='alert alert-danger'>Delete Unsuccessful. Please try again. If problem persists, contact an admin.")
+        }
+        //END AJAX DELETE CONFIRMATION
+
+
+        //AJAX DETAILS
+        $('a.detailsLink').click(function (e) {
+            e.preventDefault();
+
+            $('#ProductDetails').data('pId', $(this).attr('id')).dialog({
+                width: 1000,
+                height: 550,
+                open: function () {
+                    var pubID = $(this).data('pId');
+                    $(this).load("/Products/ProductDetails/" + pubID)
+                },
+                title: "Product Details",
+                modal: true,
+                resizeable: false
+            });
+        });
+            //END AJAX DETAILS
+
+ 
+
+    </script>
+
 }
-
-
-
 
 
 

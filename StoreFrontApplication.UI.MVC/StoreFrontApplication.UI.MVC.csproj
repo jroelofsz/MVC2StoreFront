@@ -256,7 +256,6 @@
     <Content Include="Content\img\products\NoImage.png" />
     <Content Include="Content\img\products\Powercolor Red Devil 6700xt .jpg" />
     <Content Include="Content\img\template-mac.png" />
-    <Content Include="Content\js\demo.js" />
     <Content Include="Content\js\front.js" />
     <Content Include="Content\css\PagedList.css" />
     <Content Include="Content\vendor\bootstrap-select\css\bootstrap-select.css" />
@@ -403,7 +402,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="configs\connections.config" />
     <Content Include="_Archive\cart.html" />
     <Content Include="_Archive\checkout.html" />
     <Content Include="_Archive\credits.txt" />
@@ -621,6 +619,7 @@
     <Content Include="Content\vendor\node-sass\binding.gyp" />
     <Content Include="Content\vendor\node-sass\vendor\linux-x64-64\binding.node" />
     <Content Include="Content\vendor\nouislider\CHANGELOG.MD" />
+    <Content Include="Configs\Keys.config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -726,6 +725,7 @@
     <Content Include="Views\Suppliers\Edit.cshtml" />
     <Content Include="Views\Suppliers\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Products\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

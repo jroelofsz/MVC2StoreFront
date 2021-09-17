@@ -7,36 +7,63 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
+    
+    
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="~/Content/vendor/bootstrap/css/bootstrap.min.css">
+    
+    
     <!-- Lightbox-->
     <link rel="stylesheet" href="~/Content/vendor/lightbox2/css/lightbox.min.css">
+    
+    
     <!-- Range slider-->
     <link rel="stylesheet" href="~/Content/vendor/nouislider/nouislider.min.css">
+    
+    
     <!-- Bootstrap select-->
     <link rel="stylesheet" href="~/Content/vendor/bootstrap-select/css/bootstrap-select.min.css">
+    
+    
     <!-- Owl Carousel-->
     <link rel="stylesheet" href="~/Content/vendor/owl.carousel2/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="~/Content/vendor/owl.carousel2/assets/owl.theme.default.css">
+    
+    
     <!-- Google fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
+    
+    
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="~/Content/css/style.default.css" id="theme-stylesheet">
+    
+    
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="~/Content/css/custom.css">
+    
+    
     <!-- Favicon-->
-    <link rel="shortcut icon" href="~/Content/img/favicon.png">
+    <link rel="shortcut icon" href="~/favicon.ico">
     <link href="~/Content/css/jakecustom.css" rel="stylesheet" />
-    <!-- Tweaks for older IEs-->
+    
+    
+    
     <!--NuGet Server Side Paging CSS-->
     <link href="~/Content/css/PagedList.css" rel="stylesheet" />
-
-    <!--font-awesome-->
-    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
-    <!--[if lt IE 9]>
+    
+    
+    <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    @*[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]*@
+
+
+    @* AJAX - Step 1 - Add <link> for jQuery UI in the <head>, and add <scripts> for jQuery AJAX at the bottom *@
+    @* ADDED jQueryUI CSS CDN - note: themenames are swappable.*@
+    @*NOTE, Module 5 AJAX: find names at jqueryui.com/themeroller, gallyery tab (like excite-bike, south-street or sunny)*@
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
     <div class="page-holder">
@@ -58,7 +85,7 @@
                             @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                             {
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>                                    
+                                    <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
                                     <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
                                         @if (User.IsInRole("Admin"))
                                         {
@@ -105,7 +132,12 @@
             </div>
         </header>
         <main>
-            @RenderBody()
+            <div id="MessageDisplay">
+                <div class="container" id="MessageContent">
+
+                </div>
+            </div>
+            <div>@RenderBody()</div>
         </main>
     </div>
     <footer class="bg-dark text-white">
@@ -154,8 +186,14 @@
         // while using file:// protocol
         // pls don't forget to change to your domain :)
         injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');</script>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+
+    <!--ADDEDjQuery UI CDN-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- ADDED jQuery Ajax CDN-->
+    <script src="https://cdn.jsdelivr.net/jquery.ajax.unobtrusive/3.2.4/jquery.unobtrusive-ajax.min.js"></script>
+
+
     @RenderSection("scripts", required: false)
     <script>
         $('.navbar-nav a').each(function () {
@@ -164,7 +202,6 @@
             }
         });
     </script>
-    <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 </body>
 </html>
