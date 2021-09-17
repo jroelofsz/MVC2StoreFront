@@ -23,9 +23,11 @@
         <div class="row no-gutters">
             <div class="col-md-4">
                 <label for="ProductImg">
-                    <img src="@Url.Content("~/Content/images/" +Model.ProductImage)" class="card-img" alt="@Model.ProductName thumbnail image" id="img">
+                    <img src="~/Content/img/products/@Model.ProductImage" class="card-img" alt="@Model.ProductName image" id="img">
                 </label>
-                <input type="file" id="ProductImg" name="ProductImage" />
+                <div>
+                    <input type="file" name="productImage" />
+                </div>
             </div>
             <div class="col-md-8">
                 <div class="card-body">

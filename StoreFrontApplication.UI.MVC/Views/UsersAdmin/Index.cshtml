@@ -1,17 +1,29 @@
 ﻿@model IEnumerable<StoreFrontApplication.UI.MVC.Models.ApplicationUser>
+    @using StoreFrontApplication.DATA.EF;
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Users";
+
+    StoreFrontEntities db = new StoreFrontEntities();
+
+    string userId = User.Identity.GetUserId();
+
+    UserDetail users = db.UserDetails.Find(userId);
+
 }
 
 <h1 class="container text-center">@ViewBag.Title</h1>
 
 <div class="container">
     <p>
-        <span class="offset-11">@Html.ActionLink("Create New", "Create")</span>
+        <span class="offset-11">@Html.ActionLink("Create New", "Register", "Account")</span>
     </p>
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
@@ -24,12 +36,15 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-outline-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }

@@ -64,6 +64,25 @@ namespace StoreFrontApplication.UI.MVC.Models
 
     public class RegisterViewModel
     {
+
+        //Added for customer user details
+
+        [Required]
+        [StringLength(30, ErrorMessage = "* Cannot exceed 30 characters")]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(30, ErrorMessage = "* Cannot exceed 30 characters")]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(7, ErrorMessage = "* Cannot exceed 7 characters")]
+        [Display(Name = "Favorite Color")]
+        public string FavoriteColor { get; set; }
+
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

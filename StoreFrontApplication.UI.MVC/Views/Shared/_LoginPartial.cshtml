@@ -1,9 +1,26 @@
 ﻿@using Microsoft.AspNet.Identity
+@using StoreFrontApplication.DATA.EF;
+@{ 
+    StoreFrontEntities db = new StoreFrontEntities();
+
+    string userId = User.Identity.GetUserId();
+
+    UserDetail currentUser = db.UserDetails.Find(userId);
+
+    string userFirstName = "Guest";
+    string userFavColor = "#cccccc";
+
+    if (currentUser != null)
+    {
+        userFirstName = currentUser.FirstName;
+        userFavColor = currentUser.FavoriteColor;
+    }
+}
 @if (Request.IsAuthenticated)
 {
 
     <li class="nav-item">
-        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        @Html.ActionLink("Hello " + userFirstName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", style = $"color: {userFavColor}; text-shadow: 1px 1px #000;" })
     </li>
     <li class="nav-item">
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))

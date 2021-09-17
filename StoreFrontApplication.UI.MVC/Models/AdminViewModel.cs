@@ -10,6 +10,7 @@ namespace StoreFrontApplication.UI.MVC.Models
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "RoleName")]
         public string Name { get; set; }
+
     }
 
     public class EditUserViewModel

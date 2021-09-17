@@ -146,7 +146,7 @@ namespace StoreFrontApplication.UI.MVC.Controllers
             {
 
                 #region file upload
-                string file = product.ProductImage;
+                string file = "";
 
                 if (productImage != null)
                 {
@@ -156,7 +156,7 @@ namespace StoreFrontApplication.UI.MVC.Controllers
 
                     string[] goodExts = new string[] { ".png", ".jpg", ".jpeg", ".gif" };
 
-                    if (goodExts.Contains(ext.ToLower()) && productImage.ContentLength <= 4194304)
+                    if (goodExts.Contains(ext))
                     {
                         file = Guid.NewGuid() + ext;
 

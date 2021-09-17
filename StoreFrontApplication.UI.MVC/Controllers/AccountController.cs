@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using StoreFrontApplication.DATA.EF;
 
 namespace StoreFrontApplication.UI.MVC.Controllers
 {
@@ -158,7 +159,23 @@ namespace StoreFrontApplication.UI.MVC.Controllers
                     //    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     //    ViewBag.Link = callbackUrl;
                     //    return View("DisplayEmail");
+                    
+                    #region Create UserDetails record & assign role upon registration
+                    StoreFrontEntities db = new StoreFrontEntities();
+
+                    //Create the UserDetails object and assign values
+                    UserDetail ud = new UserDetail();
+                    ud.UserId = user.Id;
+                    ud.FirstName = model.FirstName;
+                    ud.LastName = model.LastName;
+                    ud.FavoriteColor = model.FavoriteColor;
+
+                    db.UserDetails.Add(ud);
+                    db.SaveChanges();
+
+
                     UserManager.AddToRole(user.Id, "Customer");
+                    #endregion
                     return RedirectToAction("Login");
             }
                 AddErrors(result);
